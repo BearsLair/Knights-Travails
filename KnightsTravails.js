@@ -23,6 +23,7 @@ const possibleMoves = [
   [-2, 1],
 ];
 
+// Calculates and stores all moves that stay on chessboard
 const calculateAllMoves = (position) => {
   let x = 0;
   let y = 0;
@@ -50,4 +51,4 @@ const calculateAllMoves = (position) => {
 };
 
 // TESTS
-console.log(calculateAllMoves([6, 6]));
+console.log(calculateAllMoves([3, 7]));
