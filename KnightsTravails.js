@@ -16,6 +16,7 @@ const possibleMovements = [
 // and returns array with the valid moves
 
 const calculateAllMoves = (position) => {
+  console.log("current position at calculateAllMoves: ", position);
   let x = 0;
   let y = 0;
   let endLocation = [];
@@ -41,18 +42,48 @@ const calculateAllMoves = (position) => {
   return moves;
 };
 
-// Calculate all possible moves that would lead to end position in one move.
-// The knight must eventually reach one of these positions, if it's not on one
-// already.
-
-const calculateEndMoves = (endPosition) => {
-  return calculateAllMoves(endPosition);
-};
-
 const knightMoves = (startPosition, endPosition) => {
-  let movesList = [];
-  let resultMessage = "";
+  console.log("start: ", startPosition, " ending: ", endPosition);
+  let notVisited = [];
+  let moveCount = 0;
+  // let resultMessage = "";
+  let temp = [];
+  // For testing
+  let currentArray = [];
+
+  let currentPosition = startPosition;
+
+  while (
+    currentPosition[0] != endPosition[0] &&
+    currentPosition[1] != endPosition[1]
+  ) {
+    currentArray.push(currentPosition);
+    if (moveCount === 0) {
+      notVisited.push(calculateAllMoves(currentPosition));
+    }
+
+    for (let i = 0; i < notVisited[0].length; i++) {
+      currentPosition = notVisited[0][i];
+
+      if (
+        currentPosition[0] === endPosition[0] &&
+        currentPosition[1] === endPosition[1]
+      ) {
+        break;
+      } else {
+        notVisited.push(calculateAllMoves(notVisited[0][i]));
+      }
+    }
+
+    if (notVisited.length > 0) {
+      notVisited.shift();
+    }
+    moveCount++;
+  }
+
+  console.log("currentArray:", currentArray);
+  console.log("total moves: ", moveCount);
 };
 
 // TESTS
-console.log(knightMoves([6, 6], [4, 5]));
+console.log(knightMoves([3, 3], [6, 6]));
