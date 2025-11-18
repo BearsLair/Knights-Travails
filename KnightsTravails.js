@@ -50,40 +50,9 @@ const calculateEndMoves = (endPosition) => {
 };
 
 const knightMoves = (startPosition, endPosition) => {
-  const lastMoves = calculateEndMoves(endPosition);
   let movesList = [];
   let resultMessage = "";
-
-  // Checks if startPosition is in the array of lastMoves
-  const containsStartPosition = lastMoves.some(
-    (innerArray) =>
-      innerArray.length === startPosition.length &&
-      innerArray.every((value, index) => value === startPosition[index])
-  );
-
-  if (containsStartPosition) {
-    movesList = [startPosition, endPosition];
-
-    console.log("movesList", movesList);
-
-    resultMessage = `You made it in 1 move! Here's your path:\n${movesList[0]}\n${movesList[1]}`;
-
-    return resultMessage;
-  }
-
-  console.log("lastMoves: ", lastMoves);
-
-  // const startMoves = calculateAllMoves(startPosition);
-
-  console.log("startPosition: ", startPosition);
-
-  console.log(
-    "Is starting positions in last move array?: ",
-    containsTargetArray(startPosition, lastMoves)
-  );
-
-  return "huh?";
 };
 
 // TESTS
-console.log(knightMoves([3, 3], [1, 2]));
+console.log(knightMoves([6, 6], [4, 5]));
