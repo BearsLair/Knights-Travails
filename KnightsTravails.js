@@ -53,6 +53,8 @@ const knightMoves = (startPosition, endPosition) => {
 
   let currentPosition = startPosition;
 
+  console.log(currentPosition);
+
   while (
     currentPosition[0] != endPosition[0] &&
     currentPosition[1] != endPosition[1]
@@ -81,6 +83,18 @@ const knightMoves = (startPosition, endPosition) => {
     moveCount++;
   }
 
+  console.log(
+    "currentPosition[0] :",
+    currentPosition[0],
+    " endPosition[0]: ",
+    endPosition[0]
+  );
+  console.log(
+    "currentPosition[1] :",
+    currentPosition[0],
+    " endPosition[1]: ",
+    endPosition[0]
+  );
   console.log("currentArray:", currentArray);
   console.log("total moves: ", moveCount);
 };
