@@ -93,6 +93,49 @@ const knightMoves = (startPosition, endPosition) => {
   }
 
   console.log(moves);
+
+  let movesList = [];
+  let nextBackCoordinate = [];
+
+  for (let i = moves.length - 1; i > 0; i--) {
+    if (
+      moves[i][1][0] === endPosition[0] &&
+      moves[i][1][1] === endPosition[1]
+    ) {
+      movesList.unshift(moves[i][1]);
+      nextBackCoordinate = moves[i][0];
+      continue;
+    }
+
+    if (
+      moves[i][1][0] === nextBackCoordinate[0] &&
+      moves[i][1][1] === nextBackCoordinate[1]
+    ) {
+      movesList.unshift(moves[i][1]);
+      nextBackCoordinate = moves[i][0];
+    }
+
+    if (
+      nextBackCoordinate[0] === startPosition[0] &&
+      nextBackCoordinate[1] === startPosition[1]
+    ) {
+      movesList.unshift(nextBackCoordinate);
+      break;
+    }
+  }
+
+  const moveCount = movesList.length;
+
+  console.log("Final Moves List", movesList);
+
+  let message = `=> You made it in ${moveCount} moves! Here's your path!: `;
+
+  // Print messag to user
+  for (let i = 0; i < movesList; i++) {
+    message.concat(`\n${movesList[i].toString()}`);
+  }
+
+  return message;
 };
 
 // TESTS
