@@ -16,7 +16,6 @@ const possibleMovements = [
 // and returns array with the valid moves
 
 const calculateAllMoves = (position) => {
-  console.log("current position at calculateAllMoves: ", position);
   let x = 0;
   let y = 0;
   let endLocation = [];
@@ -35,68 +34,65 @@ const calculateAllMoves = (position) => {
     if (x !== null && y !== null) {
       endLocation = [x, y];
 
-      moves.push(endLocation);
+      moves.push([position, endLocation]);
     }
   }
 
   return moves;
 };
 
+// Calculates all movements from the knight's starting location
+// until it arrives at the designated ending position.
+// It then works backwards from the ending position to the start
+// to record the shortest path-by chaining the shortest path
+// vertices together and ignoring irrelevant edges of the graph.
 const knightMoves = (startPosition, endPosition) => {
-  console.log("start: ", startPosition, " ending: ", endPosition);
-  let notVisited = [];
-  let moveCount = 0;
-  // let resultMessage = "";
-  let temp = [];
-  // For testing
-  let currentArray = [];
+  let moves = calculateAllMoves(startPosition);
 
-  let currentPosition = startPosition;
+  // Save for later
+  const originalLength = moves.length;
 
-  console.log(currentPosition);
+  currentIndex = 0;
+  let currentLength = moves.length;
+  let nextMoves = [];
+  let finalPositionFound = false;
+  let lastIndex = 0;
+  let iterator = 0;
 
-  while (
-    currentPosition[0] != endPosition[0] &&
-    currentPosition[1] != endPosition[1]
-  ) {
-    currentArray.push(currentPosition);
-    if (moveCount === 0) {
-      notVisited.push(calculateAllMoves(currentPosition));
-    }
+  while (finalPositionFound === false) {
+    for (let i = currentIndex; i < currentLength; i++) {
+      iterator = i;
+      nextMoves = calculateAllMoves(moves[i][1]);
 
-    for (let i = 0; i < notVisited[0].length; i++) {
-      currentPosition = notVisited[0][i];
+      while (nextMoves.length !== 0) {
+        moves.push(nextMoves[0]);
+        lastIndex = moves.length - 1;
+        if (
+          moves[lastIndex][1][0] === endPosition[0] &&
+          moves[lastIndex][1][1] === endPosition[1]
+        ) {
+          finalPositionFound = true;
+          break;
+        }
+        if (finalPositionFound === false) {
+          nextMoves.shift();
+        }
+      }
 
       if (
-        currentPosition[0] === endPosition[0] &&
-        currentPosition[1] === endPosition[1]
+        moves[lastIndex][1][0] === endPosition[0] &&
+        moves[lastIndex][1][1] === endPosition[1]
       ) {
+        finalPositionFound = true;
         break;
-      } else {
-        notVisited.push(calculateAllMoves(notVisited[0][i]));
       }
     }
 
-    if (notVisited.length > 0) {
-      notVisited.shift();
-    }
-    moveCount++;
+    currentIndex = iterator + 1;
+    currentLength = moves.length;
   }
 
-  console.log(
-    "currentPosition[0] :",
-    currentPosition[0],
-    " endPosition[0]: ",
-    endPosition[0]
-  );
-  console.log(
-    "currentPosition[1] :",
-    currentPosition[0],
-    " endPosition[1]: ",
-    endPosition[0]
-  );
-  console.log("currentArray:", currentArray);
-  console.log("total moves: ", moveCount);
+  console.log(moves);
 };
 
 // TESTS
