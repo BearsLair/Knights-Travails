@@ -126,8 +126,6 @@ const knightMoves = (startPosition, endPosition) => {
 
   const moveCount = movesList.length;
 
-  console.log("Final Moves List", movesList);
-
   let message = "=> You made it in " + moveCount + " moves! Here's your path!:";
 
   // Print messag to user
@@ -135,10 +133,8 @@ const knightMoves = (startPosition, endPosition) => {
     message += `\n[${array.toString()}]`;
   });
 
-  console.log(message);
-
   return message;
 };
 
 // TESTS
-console.log(knightMoves([3, 3], [6, 6]));
+console.log(knightMoves([0, 0], [3, 3]));
