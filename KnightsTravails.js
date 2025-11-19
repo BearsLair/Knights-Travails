@@ -128,12 +128,14 @@ const knightMoves = (startPosition, endPosition) => {
 
   console.log("Final Moves List", movesList);
 
-  let message = `=> You made it in ${moveCount} moves! Here's your path!: `;
+  let message = "=> You made it in " + moveCount + " moves! Here's your path!:";
 
   // Print messag to user
-  for (let i = 0; i < movesList; i++) {
-    message.concat(`\n${movesList[i].toString()}`);
-  }
+  movesList.forEach((array) => {
+    message += `\n[${array.toString()}]`;
+  });
+
+  console.log(message);
 
   return message;
 };
