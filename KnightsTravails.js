@@ -92,22 +92,16 @@ const knightMoves = (startPosition, endPosition) => {
     currentLength = moves.length;
   }
 
-  console.log("moves: ", moves);
-
   let movesList = [];
   let nextBackCoordinate = [];
 
   for (let i = moves.length - 1; i > -1; i--) {
-    console.log("current iteration", i);
     if (
       moves[i][1][0] === endPosition[0] &&
       moves[i][1][1] === endPosition[1]
     ) {
-      console.log("current move matches end position");
       movesList.unshift(moves[i][1]);
-      console.log("movesList", movesList);
       nextBackCoordinate = moves[i][0];
-      console.log("nextBackCoordinate", nextBackCoordinate);
       continue;
     }
 
@@ -115,20 +109,15 @@ const knightMoves = (startPosition, endPosition) => {
       moves[i][1][0] === nextBackCoordinate[0] &&
       moves[i][1][1] === nextBackCoordinate[1]
     ) {
-      console.log("current move matches nextBackCoordinate");
       movesList.unshift(moves[i][1]);
-      console.log("current movesList: ", movesList);
       nextBackCoordinate = moves[i][0];
-      console.log("nextBackCoordinate: ", nextBackCoordinate);
     }
 
     if (
       nextBackCoordinate[0] === startPosition[0] &&
       nextBackCoordinate[1] === startPosition[1]
     ) {
-      console.log("arrived at start position");
       movesList.unshift(nextBackCoordinate);
-      console.log("ending movesList: ", movesList);
       break;
     }
   }
@@ -146,4 +135,4 @@ const knightMoves = (startPosition, endPosition) => {
 };
 
 // TESTS
-console.log(knightMoves([0, 0], [3, 3]));
+console.log(knightMoves([0, 0], [7, 7]));
